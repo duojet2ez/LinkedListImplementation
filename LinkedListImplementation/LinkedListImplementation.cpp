@@ -17,7 +17,7 @@ public:
 	void PushForward(int value);
 	void Print(node* head);
 	void Remove(int value);
-	void Erase(node* head);
+	void Clear(node* head);
 
 	node* head; 
 };
@@ -144,17 +144,26 @@ void LinkedList::Remove(int value)
 
 
 	//deleting the middle node 
-
-
 	//deleting the end node
+	node* temp3 = head; 
 	while (temp->next != NULL)
 	{
-
+		temp = temp->next; 
+		if (temp->value == value)
+		{
+			node* temp4 = temp; 
+			temp = temp->next; 
+			delete temp4;
+			temp3->next = temp; 
+			return; 
+		}
+		temp3 = temp; 
 	}
+	std::cout << "Value not found to remove" << std::endl; 
 
 }
 
-void LinkedList::Erase(node* head)
+void LinkedList::Clear(node* head)
 {
 
 }
@@ -169,8 +178,10 @@ void Test()
 	list.PushForward(14); 
 
 	list.Print(list.head); 
-	if (list.Find(15))
-		std::cout << "Found it" << std::endl;
+	list.Remove(18); 
+	std::cout << "\n\n"; 
+	list.Print(list.head); 
+
 }
 
 int main()
