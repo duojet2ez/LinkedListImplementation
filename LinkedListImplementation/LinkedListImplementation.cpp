@@ -29,13 +29,24 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
-
+	//free memory 
+	if (!head)
+		return; 
+	node* temp = head; 
+	while (temp->next != NULL)
+	{
+		node* temp2 = temp; 
+		temp = temp->next; 
+		delete temp2; 
+	}
+	delete temp; 
+	head = NULL; 
 }
 bool LinkedList::Find(int value)
 {
 	if (!head)
 	{
-		std::cout << "Nothing in this list asshole" << std::endl; 
+		std::cout << "Nothing in this list" << std::endl; 
 		return false; 
 	}
 	node* temp = head; 
@@ -98,7 +109,7 @@ void LinkedList::Print(node* head)
 {
 	if (!head)
 	{
-		std::cout << "Nothing to print asshole" << std::endl;
+		std::cout << "Nothing to print" << std::endl;
 		return; 
 	}
 
@@ -165,7 +176,21 @@ void LinkedList::Remove(int value)
 
 void LinkedList::Clear(node* head)
 {
-
+	if (!head)
+	{
+		std::cout << "Nothing to clear" << std::endl;
+	}
+	if (head->next == NULL)
+	{
+		 
+		delete head;
+		this->head = NULL; 
+		return; 
+	}
+	node* temp = head; 
+	head = head->next;
+	delete temp; 
+	Clear(head); 
 }
 
 void Test()
@@ -180,6 +205,11 @@ void Test()
 	list.Print(list.head); 
 	list.Remove(18); 
 	std::cout << "\n\n"; 
+	list.Print(list.head); 
+
+	list.Clear(list.head); 
+
+	std::cout << "\n\n";
 	list.Print(list.head); 
 
 }
